@@ -25,52 +25,68 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
 
-            if (isRegularItem(item)
-            ) {
-                item.sellIn = item.sellIn - 1;
-
-                if (item.quality > ALLOWED_MIN_QUALITY) {
-                    item.quality = item.quality - 1;
-                }
-
-                if (item.sellIn < REGULAR_ITEM_QUALITY_DECREASE_DOUBLE_SELL_IN_LIMIT) {
-                    if (item.quality > ALLOWED_MIN_QUALITY) {
-                        item.quality = item.quality - 1;
-                    }
-                }
-            }
-
-            if (item.name.equals(AGED_BRIE)) {
-                item.sellIn = item.sellIn - 1;
-
-                if (item.quality < ALLOWED_MAX_QUALITY) {
-                    item.quality = item.quality + 1;
-                }
+            switch (item.name) {
+                case AGED_BRIE:
+                    processAgedBrie(item);
+                    break;
+                case BACKSTAGE_PASSES:
+                    processBackstagePasses(item);
+                    break;
+                case SULFURAS:
+                    break;
+                default:
+                    processRegularItem(item);
+                    break;
             }
 
             if (item.name.equals(BACKSTAGE_PASSES)) {
-                item.sellIn = item.sellIn - 1;
+            }
+        }
+    }
 
+    private void processBackstagePasses(Item item) {
+        item.sellIn = item.sellIn - 1;
+
+        if (item.quality < ALLOWED_MAX_QUALITY) {
+            item.quality = item.quality + 1;
+
+            if (item.sellIn < BACKSTAGE_PASSES_DOUBLE_QUALITY_SELL_IN_LIMIT) {
                 if (item.quality < ALLOWED_MAX_QUALITY) {
                     item.quality = item.quality + 1;
-
-                    if (item.sellIn < BACKSTAGE_PASSES_DOUBLE_QUALITY_SELL_IN_LIMIT) {
-                        if (item.quality < ALLOWED_MAX_QUALITY) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-
-                    if (item.sellIn < BACKSTAGE_PASSES_TRIPLE_QUALITY_SELL_IN_LIMIT) {
-                        if (item.quality < ALLOWED_MAX_QUALITY) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
                 }
+            }
 
-
-                if (item.sellIn < BACKSTAGE_PASSES_QUALITY_RESET_SELL_IN_LIMIT) {
-                    item.quality = NO_QUALITY;
+            if (item.sellIn < BACKSTAGE_PASSES_TRIPLE_QUALITY_SELL_IN_LIMIT) {
+                if (item.quality < ALLOWED_MAX_QUALITY) {
+                    item.quality = item.quality + 1;
                 }
+            }
+        }
+
+
+        if (item.sellIn < BACKSTAGE_PASSES_QUALITY_RESET_SELL_IN_LIMIT) {
+            item.quality = NO_QUALITY;
+        }
+    }
+
+    private void processAgedBrie(Item item) {
+        item.sellIn = item.sellIn - 1;
+
+        if (item.quality < ALLOWED_MAX_QUALITY) {
+            item.quality = item.quality + 1;
+        }
+    }
+
+    private void processRegularItem(Item item) {
+        item.sellIn = item.sellIn - 1;
+
+        if (item.quality > ALLOWED_MIN_QUALITY) {
+            item.quality = item.quality - 1;
+        }
+
+        if (item.sellIn < REGULAR_ITEM_QUALITY_DECREASE_DOUBLE_SELL_IN_LIMIT) {
+            if (item.quality > ALLOWED_MIN_QUALITY) {
+                item.quality = item.quality - 1;
             }
         }
     }

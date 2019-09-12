@@ -16,7 +16,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(whateverItem));
         gildedRose.updateQuality();
 
-        assertEquals(whateverItem.sellIn, 9);
+        assertEquals(9, whateverItem.sellIn);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(whateverItem));
         gildedRose.updateQuality();
 
-        assertEquals(whateverItem.quality, 9);
+        assertEquals(9, whateverItem.quality);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(whateverItem));
         gildedRose.updateQuality();
 
-        assertEquals(whateverItem.quality, 8);
+        assertEquals(8, whateverItem.quality);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(whateverItem));
         gildedRose.updateQuality();
 
-        assertEquals(whateverItem.quality, 0);
+        assertEquals(0, whateverItem.quality);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(agedBrie));
         gildedRose.updateQuality();
 
-        assertEquals(agedBrie.quality, 2);
+        assertEquals(2, agedBrie.quality);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(agedBrie));
         gildedRose.updateQuality();
 
-        assertEquals(agedBrie.quality, 50);
+        assertEquals(50, agedBrie.quality);
     }
 
     @Test
@@ -76,8 +76,8 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(sulfuras));
         gildedRose.updateQuality();
 
-        assertEquals(sulfuras.quality, 25);
-        assertEquals(sulfuras.sellIn, 0);
+        assertEquals(25, sulfuras.quality);
+        assertEquals(0, sulfuras.sellIn);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(backstagePasses));
         gildedRose.updateQuality();
 
-        assertEquals(backstagePasses.quality, 21);
+        assertEquals(21, backstagePasses.quality);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(backstagePasses));
         gildedRose.updateQuality();
 
-        assertEquals(backstagePasses.quality, 22);
+        assertEquals(22, backstagePasses.quality);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(backstagePasses));
         gildedRose.updateQuality();
 
-        assertEquals(backstagePasses.quality, 23);
+        assertEquals(23, backstagePasses.quality);
     }
 
     @Test
@@ -117,6 +117,6 @@ public class GildedRoseShould {
         GildedRose gildedRose = new GildedRose(arrayWith(backstagePasses));
         gildedRose.updateQuality();
 
-        assertEquals(backstagePasses.quality, 0);
+        assertEquals(0, backstagePasses.quality);
     }
 }
