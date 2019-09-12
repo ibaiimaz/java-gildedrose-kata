@@ -27,25 +27,24 @@ class GildedRose {
 
             switch (item.name) {
                 case AGED_BRIE:
+                    decreaseSellIn(item);
                     processAgedBrie(item);
                     break;
                 case BACKSTAGE_PASSES:
+                    decreaseSellIn(item);
                     processBackstagePasses(item);
                     break;
                 case SULFURAS:
                     break;
                 default:
+                    decreaseSellIn(item);
                     processRegularItem(item);
                     break;
-            }
-
-            if (item.name.equals(BACKSTAGE_PASSES)) {
             }
         }
     }
 
     private void processBackstagePasses(Item item) {
-        item.sellIn = item.sellIn - 1;
 
         if (item.quality < ALLOWED_MAX_QUALITY) {
             item.quality = item.quality + 1;
@@ -70,7 +69,6 @@ class GildedRose {
     }
 
     private void processAgedBrie(Item item) {
-        item.sellIn = item.sellIn - 1;
 
         if (item.quality < ALLOWED_MAX_QUALITY) {
             item.quality = item.quality + 1;
@@ -78,7 +76,6 @@ class GildedRose {
     }
 
     private void processRegularItem(Item item) {
-        item.sellIn = item.sellIn - 1;
 
         if (item.quality > ALLOWED_MIN_QUALITY) {
             item.quality = item.quality - 1;
@@ -91,9 +88,7 @@ class GildedRose {
         }
     }
 
-    private boolean isRegularItem(Item item) {
-        return !item.name.equals(AGED_BRIE) &&
-            !item.name.equals(BACKSTAGE_PASSES) &&
-            !item.name.equals(SULFURAS);
+    private void decreaseSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
     }
 }
