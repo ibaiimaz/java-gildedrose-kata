@@ -28,67 +28,66 @@ class GildedRose {
             switch (item.name) {
                 case AGED_BRIE:
                     decreaseSellIn(item);
-                    processAgedBrie(item);
+                    updateAgedBrieQuality(item);
                     break;
                 case BACKSTAGE_PASSES:
                     decreaseSellIn(item);
-                    processBackstagePasses(item);
+                    updateBackstagePassesQuality(item);
                     break;
                 case SULFURAS:
                     break;
                 default:
                     decreaseSellIn(item);
-                    processRegularItem(item);
+                    updateRegularItemQuality(item);
                     break;
             }
         }
     }
 
-    private void processBackstagePasses(Item item) {
-
+    private void updateBackstagePassesQuality(Item item) {
         if (item.quality < ALLOWED_MAX_QUALITY) {
-            item.quality = item.quality + 1;
+            item.quality++;
 
             if (item.sellIn < BACKSTAGE_PASSES_DOUBLE_QUALITY_SELL_IN_LIMIT) {
-                if (item.quality < ALLOWED_MAX_QUALITY) {
-                    item.quality = item.quality + 1;
-                }
+                incrementQualityIfMaxNotReached(item);
             }
 
             if (item.sellIn < BACKSTAGE_PASSES_TRIPLE_QUALITY_SELL_IN_LIMIT) {
-                if (item.quality < ALLOWED_MAX_QUALITY) {
-                    item.quality = item.quality + 1;
-                }
+                incrementQualityIfMaxNotReached(item);
             }
         }
-
 
         if (item.sellIn < BACKSTAGE_PASSES_QUALITY_RESET_SELL_IN_LIMIT) {
             item.quality = NO_QUALITY;
         }
     }
 
-    private void processAgedBrie(Item item) {
 
-        if (item.quality < ALLOWED_MAX_QUALITY) {
-            item.quality = item.quality + 1;
+    private void updateAgedBrieQuality(Item item) {
+        incrementQualityIfMaxNotReached(item);
+    }
+
+    private void updateRegularItemQuality(Item item) {
+        decreamentQualityIfMinNotReached(item);
+
+        if (item.sellIn < REGULAR_ITEM_QUALITY_DECREASE_DOUBLE_SELL_IN_LIMIT) {
+            decreamentQualityIfMinNotReached(item);
         }
     }
 
-    private void processRegularItem(Item item) {
-
-        if (item.quality > ALLOWED_MIN_QUALITY) {
-            item.quality = item.quality - 1;
+    private void incrementQualityIfMaxNotReached(Item item) {
+        if (item.quality < ALLOWED_MAX_QUALITY) {
+            item.quality++;
         }
+    }
 
-        if (item.sellIn < REGULAR_ITEM_QUALITY_DECREASE_DOUBLE_SELL_IN_LIMIT) {
-            if (item.quality > ALLOWED_MIN_QUALITY) {
-                item.quality = item.quality - 1;
-            }
+    private void decreamentQualityIfMinNotReached(Item item) {
+        if (item.quality > ALLOWED_MIN_QUALITY) {
+            item.quality--;
         }
     }
 
     private void decreaseSellIn(Item item) {
-        item.sellIn = item.sellIn - 1;
+        item.sellIn--;
     }
 }
